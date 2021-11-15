@@ -269,9 +269,8 @@
 
 ## 1.11
 
-- [https://github.com/pasiol/log-output/tree/1.11]
-- [https://github.com/pasiol/ping-pong/tree/1.11]
-
+[https://github.com/pasiol/log-output/tree/1.11]
+[https://github.com/pasiol/ping-pong/tree/1.11]
 
     docker exec k3d-k3s-default-agent-0 mkdir -p /tmp/kube
     pasiol@lab:~$ kubectl apply -f https://raw.githubusercontent.com/pasiol/log-output/1.11/manifests/persistentVolume.yaml
