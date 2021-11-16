@@ -188,7 +188,7 @@
 
     kubectl apply -f https://raw.githubusercontent.com/pasiol/log-output/1.07/manifests/deployment.yaml
     deployment.apps/log-output created
-     kubectl apply -f https://raw.githubusercontent.com/pasiol/log-output/1.07/manifests/service.yaml
+    kubectl apply -f https://raw.githubusercontent.com/pasiol/log-output/1.07/manifests/service.yaml
     service/log-output-svc created
     kubectl apply -f https://raw.githubusercontent.com/pasiol/log-output/1.07/manifests/ingress.yaml
     ingress.networking.k8s.io/log-output-ingress created
