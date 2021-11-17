@@ -125,3 +125,96 @@ todo-project includes the builded version of React-frontend.
     firefox http://todo.local
 
 ![Screeshot](images/2.02.png)
+
+## 2.03
+
+[https://github.com/pasiol/ping-pong/tree/2.03]
+[https://github.com/pasiol/log-output/tree/2.03]
+
+
+    k3d cluster delete && k3d cluster create --port 8082:20080@agent:0 -p 8081:80@loadbalancer --agents 2 && docker exec k3d-k3s-default-agent-0 mkdir -p /tmp/kube
+    kubectl create namespace applications
+    kubectl config set-context --current --namespace=applications
+
+    kubectl apply -f https://raw.githubusercontent.com/pasiol/ping-pong/2.03/manifests/deployment.yaml
+    pasiol@lab:~$ kubectl apply -f https://raw.githubusercontent.com/pasiol/ping-pong/2.03/manifests/service.yaml
+    service/ping-pong-svc created
+    pasiol@lab:~$ kubectl apply -f https://raw.githubusercontent.com/pasiol/ping-pong/2.03/manifests/ingress.yaml
+    ingress.networking.k8s.io/ping-pong-ingress created
+
+    pasiol@lab:~$ kubectl get ing
+    NAME                CLASS    HOSTS   ADDRESS                            PORTS   AGE
+    ping-pong-ingress   <none>   *       172.18.0.2,172.18.0.3,172.18.0.4   80      7m15s
+    pasiol@lab:~$ curl http://172.18.0.2/pingpong
+    Ping / Pongs: 1
+
+    pasiol@lab:~$ kubectl apply -f https://raw.githubusercontent.com/pasiol/log-output/2.03/manifests/persistentVolume.yaml
+    persistentvolume/log-output-pv created
+    pasiol@lab:~$ kubectl apply -f https://raw.githubusercontent.com/pasiol/log-output/2.03/manifests/persistentVolumeClaim.yaml
+    persistentvolumeclaim/log-output-claim created
+    pasiol@lab:~$ kubectl apply -f https://raw.githubusercontent.com/pasiol/log-output/2.03/manifests/deployment.yaml
+    deployment.apps/log-output-dep created
+    pasiol@lab:~$ kubectl apply -f https://raw.githubusercontent.com/pasiol/log-output/2.03/manifests/service.yaml
+    service/log-output-svc created
+    pasiol@lab:~$ kubectl apply -f https://raw.githubusercontent.com/pasiol/log-output/2.03/manifests/ingress.yaml
+    ingress.networking.k8s.io/log-output-ingress created
+
+    NAME                 CLASS    HOSTS   ADDRESS                            PORTS   AGE
+    ping-pong-ingress    <none>   *       172.18.0.2,172.18.0.3,172.18.0.4   80      16m
+    log-output-ingress   <none>   *       172.18.0.2,172.18.0.3,172.18.0.4   80      36s
+    pasiol@lab:~$ curl http://172.18.0.2
+    2021-11-17T14:30:49.893084222Z 177e215e-1252-4b09-8256-02aea10703cb
+    Ping / Pongs: 2
+
+## 2.04
+
+- [https://github.com/pasiol/todo-project/tree/2.04]
+- [https://github.com/pasiol/todo-project-backend/tree/2.04]
+
+
+    pasiol@lab:~$ kubectl delete ing ping-pong-ingress
+    ingress.networking.k8s.io "ping-pong-ingress" deleted
+    pasiol@lab:~$ kubectl delete ing log-output-ingress
+    ingress.networking.k8s.io "log-output-ingress" deleted
+
+    pasiol@lab:~$ kubectl create namespace todo-project
+    namespace/todo-project created
+    pasiol@lab:~$   kubectl config set-context --current --namespace=todo-project
+    Context "k3d-k3s-default" modified.
+
+    pasiol@lab:~$ kubectl apply -f https://raw.githubusercontent.com/pasiol/todo-project-backend/2.04/manifests/deployment.yaml
+    deployment.apps/todo-project-backend created
+    pasiol@lab:~$ kubectl apply -f https://raw.githubusercontent.com/pasiol/todo-project-backend/2.04/manifests/service.yaml
+    service/todo-project-backend-svc created
+    pasiol@lab:~$ kubectl apply -f https://raw.githubusercontent.com/pasiol/todo-project-backend/2.04/manifests/ingress.yaml
+    ingress.networking.k8s.io/todo-project-backend-ingress created
+
+    pasiol@lab:~$ kubectl get ing
+    NAME                           CLASS    HOSTS   ADDRESS                            PORTS   AGE
+    todo-project-backend-ingress   <none>   *       172.18.0.2,172.18.0.3,172.18.0.4   80      11s
+
+    pasiol@lab:~$ curl -H "Content-Type: application/json" --request POST -d '{"task": "learn golang"}' http://todo.local/todos
+    "new todo task created"
+    pasiol@lab:~$ curl http://todo.local/todos
+    [{"task":"learn golang"}]
+
+    pasiol@lab:~$ kubectl apply -f https://raw.githubusercontent.com/pasiol/todo-project/2.04/manifests/configMap.yaml
+    configmap/web-config created
+    pasiol@lab:~$ kubectl apply -f https://raw.githubusercontent.com/pasiol/todo-project/2.04/manifests/persistentVolume.yaml
+    persistentvolume/todo-project-pv created
+    pasiol@lab:~$ kubectl apply -f https://raw.githubusercontent.com/pasiol/todo-project/2.04/manifests/persistentVolumeClaim.yaml
+    persistentvolumeclaim/todo-project-claim created
+    pasiol@lab:~$ kubectl apply -f https://raw.githubusercontent.com/pasiol/todo-project/2.04/manifests/deployment.yaml
+    deployment.apps/todo-project created
+    pasiol@lab:~$ kubectl apply -f https://raw.githubusercontent.com/pasiol/todo-project/2.04/manifests/service.yaml
+    service/todo-project-svc created
+    pasiol@lab:~$ kubectl apply -f https://raw.githubusercontent.com/pasiol/todo-project/2.04/manifests/ingress.yaml
+    ingress.networking.k8s.io/todo-project-ingress created
+    pasiol@lab:~$ kubectl get ing
+    NAME                           CLASS    HOSTS   ADDRESS                            PORTS   AGE
+    todo-project-backend-ingress   <none>   *       172.18.0.2,172.18.0.3,172.18.0.4   80      12m
+    todo-project-ingress           <none>   *       172.18.0.2,172.18.0.3,172.18.0.4   80      9s
+
+    firefox http://todo.local
+
+![Screeshot](images/2.04.png)
