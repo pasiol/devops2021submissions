@@ -2,8 +2,8 @@
 
 ## 2.01
 
-[https://github.com/pasiol/log-output/tree/2.01]
-[https://github.com/pasiol/ping-pong/tree/2.01]
+https://github.com/pasiol/log-output/tree/2.01
+https://github.com/pasiol/ping-pong/tree/2.01
 
     k3d cluster delete && k3d cluster create --port 8082:20080@agent:0 -p 8081:80@loadbalancer --agents 2 && docker exec k3d-k3s-default-agent-0 mkdir -p /tmp/kube
 
@@ -31,9 +31,9 @@
 
 ## 2.02
 
-- [https://github.com/pasiol/todo-project-backend/tree/2.02]
-- [https://github.com/pasiol/todo-project/tree/2.02]
-- [https://github.com/pasiol/to-do-project-frontend/tree/2.02]
+- https://github.com/pasiol/todo-project-backend/tree/2.02
+- https://github.com/pasiol/todo-project/tree/2.02
+- https://github.com/pasiol/to-do-project-frontend/tree/2.02
 
 todo-project includes the builded version of React-frontend.
 
@@ -128,8 +128,8 @@ todo-project includes the builded version of React-frontend.
 
 ## 2.03
 
-- [https://github.com/pasiol/ping-pong/tree/2.03]
-- [https://github.com/pasiol/log-output/tree/2.03]
+- https://github.com/pasiol/ping-pong/tree/2.03
+- https://github.com/pasiol/log-output/tree/2.03
 
 cli:
 
@@ -169,8 +169,8 @@ cli:
 
 ## 2.04
 
-- [https://github.com/pasiol/todo-project/tree/2.04]
-- [https://github.com/pasiol/todo-project-backend/tree/2.04]
+- https://github.com/pasiol/todo-project/tree/2.04
+- https://github.com/pasiol/todo-project-backend/tree/2.04
 
 cli:
 

@@ -2,7 +2,7 @@
 
 ## 1.01
 
-[https://github.com/pasiol/log-output/tree/1.01]
+https://github.com/pasiol/log-output/tree/1.01
 
     docker build -t pasiol/log-output .
     docker push pasiol/log-output
@@ -30,7 +30,7 @@
 
 ## 1.02
 
-[https://github.com/pasiol/todo-project/tree/1.02]
+https://github.com/pasiol/todo-project/tree/1.02
 
     docker build -t pasiol/todo-project .
     docker push pasiol/todo-project
@@ -50,7 +50,7 @@
 
 ## 1.03
 
-[https://github.com/pasiol/log-output/tree/1.03]
+https://github.com/pasiol/log-output/tree/1.03
 
     kubectl apply -f https://raw.githubusercontent.com/pasiol/log-output/1.03/manifests/deployment.yaml
     deployment.apps/log-output created
@@ -73,7 +73,7 @@
 
 ## 1.04
 
-[https://github.com/pasiol/todo-project/tree/1.04]
+https://github.com/pasiol/todo-project/tree/1.04
 
     kubectl apply -f https://raw.githubusercontent.com/pasiol/todo-project/1.04/manifests/deployment.yaml
     deployment.apps/todo-project created
@@ -90,7 +90,7 @@
 
 ## 1.05
 
-[https://github.com/pasiol/todo-project/tree/1.05]
+https://github.com/pasiol/todo-project/tree/1.05
 
     kubectl get pods
     NAME                            READY   STATUS    RESTARTS   AGE
@@ -108,7 +108,7 @@
 
 ## 1.06
 
-[https://github.com/pasiol/todo-project/tree/1.06]
+https://github.com/pasiol/todo-project/tree/1.06
 
     k3d cluster delete
     INFO[0000] Deleting cluster 'k3s-default'               
@@ -184,7 +184,7 @@
 
 ## 1.07
 
-[https://github.com/pasiol/log-output/tree/1.07]
+https://github.com/pasiol/log-output/tree/1.07
 
     kubectl apply -f https://raw.githubusercontent.com/pasiol/log-output/1.07/manifests/deployment.yaml
     deployment.apps/log-output created
@@ -221,7 +221,7 @@
 
 ## 1.08
 
-[https://github.com/pasiol/todo-project/tree/1.08]
+https://github.com/pasiol/todo-project/tree/1.08
 
     kubectl delete -f https://raw.githubusercontent.com/pasiol/log-output/1.07/manifests/ingress.yaml
     ingress.networking.k8s.io "log-output-ingress" deleted
@@ -248,7 +248,7 @@
 
 ## 1.09
 
-[https://github.com/pasiol/ping-pong/tree/1.09]
+https://github.com/pasiol/ping-pong/tree/1.09
 
     kubectl delete -f https://raw.githubusercontent.com/pasiol/todo-project/1.08/manifests/ingress.yaml
     ingress.networking.k8s.io "todo-project-ingress" deleted
@@ -289,7 +289,7 @@
 
 ## 1.10
 
-[https://github.com/pasiol/log-output/tree/1.10]
+https://github.com/pasiol/log-output/tree/1.10
 
     kubectl delete -f https://raw.githubusercontent.com/pasiol/ping-pong/main/manifests/ingress.yaml
     ingress.networking.k8s.io "ping-pong-ingress" deleted
@@ -332,8 +332,8 @@
 
 ## 1.11
 
-[https://github.com/pasiol/log-output/tree/1.11]
-[https://github.com/pasiol/ping-pong/tree/1.11]
+https://github.com/pasiol/log-output/tree/1.11
+https://github.com/pasiol/ping-pong/tree/1.11
 
     docker exec k3d-k3s-default-agent-0 mkdir -p /tmp/kube
     kubectl apply -f https://raw.githubusercontent.com/pasiol/log-output/1.11/manifests/persistentVolume.yaml
@@ -363,7 +363,7 @@
 
 ## 1.12
 
-[https://github.com/pasiol/todo-project/tree/1.12]
+https://github.com/pasiol/todo-project/tree/1.12
 
     kubectl apply -f https://raw.githubusercontent.com/pasiol/todo-project/1.12/manifests/persistentVolume.yaml
     persistentvolume/todo-project-pv created
@@ -404,7 +404,7 @@
 
 ## 1.13
 
-[https://github.com/pasiol/todo-project/tree/1.13]
+https://github.com/pasiol/todo-project/tree/1.13
 
     kubectl apply -f https://raw.githubusercontent.com/pasiol/todo-project/1.13/manifests/deployment.yaml
     deployment.apps/todo-project configured
