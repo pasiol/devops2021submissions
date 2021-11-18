@@ -220,3 +220,47 @@ cli:
     firefox http://todo.local
 
 ![Screeshot](images/2.04.png)
+
+## 2.05
+
+    sudo dnf install age
+    age -version
+    1.0.0
+
+    wget -c https://github.com/mozilla/sops/releases/download/v3.7.1/sops-3.7.1-1.x86_64.rpm
+    sudo dnf localinstall sops-3.7.1-1.x86_64.rpm
+    sops -version
+    sops 3.7.1 (latest)
+
+## 2.06
+
+    kubectl config set-context --current --namespace=applications
+
+    kubectl apply -f https://raw.githubusercontent.com/pasiol/ping-pong/2.03/manifests/deployment.yaml
+    deployment.apps/ping-pong unchanged
+    kubectl apply -f https://raw.githubusercontent.com/pasiol/ping-pong/2.03/manifests/service.yaml
+    service/ping-pong-svc unchanged
+    kubectl apply -f https://raw.githubusercontent.com/pasiol/ping-pong/2.03/manifests/ingress.yaml
+    ingress.networking.k8s.io/ping-pong-ingress created
+
+    kubectl apply -f https://raw.githubusercontent.com/pasiol/log-output/2.06/manifests/persistentVolume.yaml
+    persistentvolume/log-output-pv unchanged
+    kubectl apply -f https://raw.githubusercontent.com/pasiol/log-output/2.06/manifests/persistentVolumeClaim.yaml
+    persistentvolumeclaim/log-output-claim unchanged
+    kubectl apply -f https://raw.githubusercontent.com/pasiol/log-output/2.06/manifests/configMap.yaml
+    configmap/exercise-variables created
+    kubectl apply -f https://raw.githubusercontent.com/pasiol/log-output/2.06/manifests/deployment.yaml
+    deployment.apps/log-output-dep configured
+    kubectl apply -f https://raw.githubusercontent.com/pasiol/log-output/2.06/manifests/service.yaml
+    service/log-output-svc unchanged
+    kubectl apply -f https://raw.githubusercontent.com/pasiol/log-output/2.06/manifests/ingress.yaml
+    ingress.networking.k8s.io/log-output-ingress created
+
+    kubectl get ing
+    NAME                 CLASS    HOSTS   ADDRESS                            PORTS   AGE
+    ping-pong-ingress    <none>   *       172.18.0.2,172.18.0.3,172.18.0.4   80      3h25m
+    log-output-ingress   <none>   *       172.18.0.2,172.18.0.3,172.18.0.4   80      3h22m
+    curl 172.18.0.2
+    Hello
+    2021-11-18T20:25:58.127894419Z 08ea40ef-4842-4673-90b9-046897177112
+    Ping / Pongs: 9
