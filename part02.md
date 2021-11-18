@@ -234,6 +234,10 @@ cli:
 
 ## 2.06
 
+    - https://github.com/pasiol/log-output/tree/2.06
+
+
+
     kubectl config set-context --current --namespace=applications
 
     kubectl apply -f https://raw.githubusercontent.com/pasiol/ping-pong/2.03/manifests/deployment.yaml
