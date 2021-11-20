@@ -269,6 +269,8 @@ https://github.com/pasiol/log-output/tree/2.06
 
 ## 2.07
 
+https://github.com/pasiol/ping-pong/tree/2.07
+
     cat /etc/hosts | grep 172.18.0.2
     172.18.0.2 172.18.0.3 172.18.0.4 todo.local log-output.local
 
