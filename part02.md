@@ -316,10 +316,12 @@ https://github.com/pasiol/ping-pong/tree/2.07
     NAME                 CLASS    HOSTS   ADDRESS                            PORTS   AGE
     ping-pong-ingress    <none>   *       172.18.0.2,172.18.0.3,172.18.0.4   80      47h
     log-output-ingress   <none>   *       172.18.0.2,172.18.0.3,172.18.0.4   80      47h
+
     curl http://172.18.0.2
     Hello
     2021-11-20T16:42:11.39097228Z 34c2cd55-1a70-41ad-87f4-523105b9a80f
     Ping / Pongs: 1
+
     kubectl get pods
     NAME                             READY   STATUS    RESTARTS   AGE
     log-output-dep-64cb7bdd5-sz7nd   2/2     Running   0          79m
@@ -336,6 +338,7 @@ https://github.com/pasiol/ping-pong/tree/2.07
     2021-11-20 16:36:41.979 UTC [1] LOG:  database system is ready to accept connections
     kubectl logs ping-pong-6ff5c66d74-j6sqh pingpong
     error: container pingpong is not valid for pod ping-pong-6ff5c66d74-j6sqh
+
     kubectl logs ping-pong-6ff5c66d74-j6sqh ping-pong
     2021/11/20 16:36:42 Reading environment failed.
     2021/11/20 16:36:42 counter is 0
