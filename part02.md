@@ -234,9 +234,7 @@ cli:
 
 ## 2.06
 
-    - https://github.com/pasiol/log-output/tree/2.06
-
-
+https://github.com/pasiol/log-output/tree/2.06
 
     kubectl config set-context --current --namespace=applications
 
@@ -307,3 +305,39 @@ cli:
 
     kubectl apply -f https://raw.githubusercontent.com/pasiol/ping-pong/2.07/manifests/deployment.yaml
     deployment.apps/ping-pong created
+    kubectl apply -f https://raw.githubusercontent.com/pasiol/ping-pong/2.07/manifests/service.yaml
+    service/ping-pong-svc unchanged
+    kubectl apply -f https://raw.githubusercontent.com/pasiol/ping-pong/2.07/manifests/ingress.yaml
+    ingress.networking.k8s.io/ping-pong-ingress unchanged
+
+    kubectl get ing
+    NAME                 CLASS    HOSTS   ADDRESS                            PORTS   AGE
+    ping-pong-ingress    <none>   *       172.18.0.2,172.18.0.3,172.18.0.4   80      47h
+    log-output-ingress   <none>   *       172.18.0.2,172.18.0.3,172.18.0.4   80      47h
+    curl http://172.18.0.2
+    Hello
+    2021-11-20T16:42:11.39097228Z 34c2cd55-1a70-41ad-87f4-523105b9a80f
+    Ping / Pongs: 1
+    kubectl get pods
+    NAME                             READY   STATUS    RESTARTS   AGE
+    log-output-dep-64cb7bdd5-sz7nd   2/2     Running   0          79m
+    ping-pong-6ff5c66d74-j6sqh       2/2     Running   0          6m2s
+    kubectl logs ping-pong-6ff5c66d74-j6sqh postgres-pingpong
+
+    PostgreSQL Database directory appears to contain a database; Skipping initialization
+
+    2021-11-20 16:36:41.961 UTC [1] LOG:  starting PostgreSQL 13.5 (Debian 13.5-1.pgdg110+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 10.2.1-6) 10.2.1 20210110, 64-bit
+    2021-11-20 16:36:41.962 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+    2021-11-20 16:36:41.962 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+    2021-11-20 16:36:41.966 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+    2021-11-20 16:36:41.971 UTC [27] LOG:  database system was shut down at 2021-11-20 15:14:43 UTC
+    2021-11-20 16:36:41.979 UTC [1] LOG:  database system is ready to accept connections
+    kubectl logs ping-pong-6ff5c66d74-j6sqh pingpong
+    error: container pingpong is not valid for pod ping-pong-6ff5c66d74-j6sqh
+    kubectl logs ping-pong-6ff5c66d74-j6sqh ping-pong
+    2021/11/20 16:36:42 Reading environment failed.
+    2021/11/20 16:36:42 counter is 0
+    2021/11/20 16:36:42 starting pingpong server in 0.0.0.0:8888.
+    2021/11/20 16:36:42 Version:  , build:
+    2021/11/20 16:36:42 Allowed origins: http://log-output.local
+    2021/11/20 16:42:13 written 16 bytes address 10.42.2.19:51630: Ping / Pongs: 1
