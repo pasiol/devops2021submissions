@@ -268,3 +268,42 @@ cli:
     Hello
     2021-11-18T20:25:58.127894419Z 08ea40ef-4842-4673-90b9-046897177112
     Ping / Pongs: 9
+
+## 2.07
+
+    cat /etc/hosts | grep 172.18.0.2
+    172.18.0.2 172.18.0.3 172.18.0.4 todo.local log-output.local
+
+    age-keygen -o course_key.txt
+    Public key: age1kdhxyxzul9q095wq9rc3hfkc4ukt2yze2474f46pk84wl5c7l4kqlxurfl
+    cat course_key.txt
+    # created: 2021-11-20T17:25:41+02:00
+    # public key: age1kdhxyxzul9q095wq9rc3hfkc4ukt2yze2474f46pk84wl5c7l4kqlxurfl
+    AGE-SECRET-KEY-NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
+
+    kubectl config set-context --current --namespace=application
+
+    echo -n "testersecret" | base64
+    dGVzdGVyc2VjcmV0
+    echo -n "testingsecret" | base64
+    dGVzdGluZ3NlY3JldA==
+
+    sops  --encrypt --age age1kdhxyxzul9q095wq9rc3hfkc4ukt2yze2474f46pk84wl5c7l4kqlxurfl --encrypted-regex '^(data)$' secrets.yaml > secrets.enc.yaml
+    rm secrets.yaml
+
+    export SOPS_AGE_KEY_FILE=$(pwd)/course_key.txt
+
+    curl https://raw.githubusercontent.com/pasiol/ping-pong/2.07/manifests/secrets.enc.yaml > secret.enc.yaml && sops --decrypt secrets.enc.yaml > secrets.yaml
+
+    kubectl apply -f secrets.yaml
+    secret/postgres created
+
+    shred -u -n 100 secret*
+
+    kubectl apply -f https://raw.githubusercontent.com/pasiol/ping-pong/2.07/manifests/persistentVolume.yaml
+    persistentvolume/pingpong-pv created
+    kubectl apply -f https://raw.githubusercontent.com/pasiol/ping-pong/2.07/manifests/persistentVolumeClaim.yaml
+    persistentvolumeclaim/pingpong-pvc created
+
+    kubectl apply -f https://raw.githubusercontent.com/pasiol/ping-pong/2.07/manifests/deployment.yaml
+    deployment.apps/ping-pong created
