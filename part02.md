@@ -289,11 +289,11 @@ https://github.com/pasiol/ping-pong/tree/2.07
     dGVzdGluZ3NlY3JldA==
 
     sops  --encrypt --age age1kdhxyxzul9q095wq9rc3hfkc4ukt2yze2474f46pk84wl5c7l4kqlxurfl --encrypted-regex '^(data)$' secrets.yaml > secrets.enc.yaml
-    rm secrets.yaml
+    shred -u -n 100 secrets.yaml
 
     export SOPS_AGE_KEY_FILE=$(pwd)/course_key.txt
 
-    curl https://raw.githubusercontent.com/pasiol/ping-pong/2.07/manifests/secrets.enc.yaml > secret.enc.yaml && sops --decrypt secrets.enc.yaml > secrets.yaml
+    curl https://raw.githubusercontent.com/pasiol/ping-pong/2.07/manifests/secrets.enc.yaml > secrets.enc.yaml && sops --decrypt secrets.enc.yaml > secrets.yaml
 
     kubectl apply -f secrets.yaml
     secret/postgres created
@@ -326,6 +326,7 @@ https://github.com/pasiol/ping-pong/tree/2.07
     NAME                             READY   STATUS    RESTARTS   AGE
     log-output-dep-64cb7bdd5-sz7nd   2/2     Running   0          79m
     ping-pong-6ff5c66d74-j6sqh       2/2     Running   0          6m2s
+
     kubectl logs ping-pong-6ff5c66d74-j6sqh postgres-pingpong
 
     PostgreSQL Database directory appears to contain a database; Skipping initialization
@@ -346,3 +347,111 @@ https://github.com/pasiol/ping-pong/tree/2.07
     2021/11/20 16:36:42 Version:  , build:
     2021/11/20 16:36:42 Allowed origins: http://log-output.local
     2021/11/20 16:42:13 written 16 bytes address 10.42.2.19:51630: Ping / Pongs: 1
+
+    kubectl rollout restart deployments/ping-pong
+    deployment.apps/ping-pong restarted
+
+    kubectl get pods
+    NAME                             READY   STATUS    RESTARTS   AGE
+    log-output-dep-64cb7bdd5-sz7nd   2/2     Running   0          105m
+    ping-pong-74c56d8564-wwvgg       2/2     Running   0          15s
+
+    curl http://172.18.0.2
+    Hello
+    2021-11-20T17:08:57.415956935Z 3a315bb0-9f81-4840-b585-5181d7490cb6
+    Ping / Pongs: 13
+
+## 2.08
+
+    sops  --encrypt --age age1kdhxyxzul9q095wq9rc3hfkc4ukt2yze2474f46pk84wl5c7l4kqlxurfl --encrypted-regex '^(data)$' ./manifests/secret.yaml > ./manifests/secret.enc.yaml
+
+    kubectl config set-context --current --namespace=todo-project
+
+    kubectl apply -f https://raw.githubusercontent.com/pasiol/todo-project-backend/2.08/manifests/persistentVolume.yaml
+    persistentvolume/todo-project-backend-pv created
+    kubectl apply -f https://raw.githubusercontent.com/pasiol/todo-project-backend/2.08/manifests/persistentVolumeClaim.yaml
+    persistentvolumeclaim/todo-project-pvc created
+
+    export SOPS_AGE_KEY_FILE=$(pwd)/course_key.txt
+    curl https://raw.githubusercontent.com/pasiol/todo-project-backend/2.08/manifests/secret.enc.yaml > secret.enc.yaml && sops --decrypt secret.enc.yaml > secret.yaml
+    kubectl apply -f secret.yaml
+    secret/postgres created
+
+    kubectl apply -f https://raw.githubusercontent.com/pasiol/todo-project-backend/2.08/manifests/postgres/deployment.yaml
+    deployment.apps/todo-project-backend-db created
+
+    kubectl get pods
+    NAME                                       READY   STATUS    RESTARTS   AGE
+    todo-project-599dcd896-zgxn4               1/1     Running   0          3d19h
+    todo-project-backend-c5b7fb6c5-ksdcw       1/1     Running   0          3d19h
+    todo-project-backend-db-645699d7fb-kxptn   1/1     Running   0          25s
+
+    kubectl logs todo-project-backend-db-645699d7fb-kxptn
+    The files belonging to this database system will be owned by user "postgres".
+    This user must also own the server process.
+    ...
+    waiting for server to shut down...2021-11-21 10:42:49.679 UTC [50] LOG:  received fast shutdown request
+    .2021-11-21 10:42:49.683 UTC [50] LOG:  aborting any active transactions
+    2021-11-21 10:42:49.692 UTC [50] LOG:  background worker "logical replication launcher" (PID 57) exited with exit code 1
+    2021-11-21 10:42:49.695 UTC [52] LOG:  shutting down
+    2021-11-21 10:42:49.728 UTC [50] LOG:  database system is shut down
+     done
+    server stopped
+
+    PostgreSQL init process complete; ready for start up.
+
+    2021-11-21 10:42:49.844 UTC [1] LOG:  starting PostgreSQL 13.5 (Debian 13.5-1.pgdg110+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 10.2.1-6) 10.2.1 20210110, 64-bit
+    2021-11-21 10:42:49.844 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+    2021-11-21 10:42:49.844 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+    2021-11-21 10:42:49.852 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+    2021-11-21 10:42:49.866 UTC [64] LOG:  database system was shut down at 2021-11-21 10:42:49 UTC
+    2021-11-21 10:42:49.883 UTC [1] LOG:  database system is ready to accept connections
+
+    kubectl apply -f https://raw.githubusercontent.com/pasiol/todo-project-backend/2.08/manifests/postgres/service.yaml
+    service/todo-project-backend-db-svc created
+
+
+
+    kubectl apply -f https://raw.githubusercontent.com/pasiol/todo-project-backend/2.08/manifests/configMap.yaml
+    configmap/todo-db-host created
+
+    kubectl apply -f https://raw.githubusercontent.com/pasiol/todo-project-backend/2.08/manifests/deployment.yaml
+deployment.apps/todo-project-backend created
+
+    kubectl get pods
+    NAME                                       READY   STATUS    RESTARTS   AGE
+    todo-project-599dcd896-zgxn4               1/1     Running   0          3d20h
+    todo-project-backend-9fbc448f-4rg99        1/1     Running   0          62s
+    todo-project-backend-db-84b4f6644c-75kzl   1/1     Running   1          101s
+
+    kubectl logs todo-project-backend-9fbc448f-4rg99
+    2021/11/21 11:44:48 connected to db: &{0 {{{todo-project-backend-db-svc 5432 todos testersecret testingsecret <nil> 0 0x69ec60 0x7d5520 0x7d4b00 map[TimeZone:Europe/Helsinki timezone:Europe/Helsinki] [] <nil> <nil> <nil> <nil> true} <nil> 4 host=todo-project-backend-db-svc user=testersecret password=testingsecret dbname=todos port=5432 sslmode=disable TimeZone=Europe/Helsinki 0x8c7680 true true} 0x8cd8e0 0x8cd900 0x8cd920 0xc00000ca98} 0 {0 0} [0xc0002002d0] map[] 0 1 0xc000074240 false map[0xc0002002d0:map[0xc0002002d0:true]] map[] 0 0 0 0 <nil> 0 0 0 0 0x4f0520}
+    2021/11/21 11:44:48 starting REST-backend in 0.0.0.0:8888.
+    2021/11/21 11:44:48 Version: e54ad9f17a0d074b8c8e881846c02aa13266d1d9 , build: 2021-11-21T07:19:10+0000
+    2021/11/21 11:44:48 Allowed origins: http://todo.local
+
+    kubectl apply -f https://raw.githubusercontent.com/pasiol/todo-project-backend/2.08/manifests/service.yaml
+    service/todo-project-backend-svc unchanged
+    pasiol@lab:~$ kubectl apply -f https://raw.githubusercontent.com/pasiol/todo-project-backend/2.08/manifests/ingress.yaml
+    ingress.networking.k8s.io/todo-project-backend-ingress created
+
+    pasiol@lab:~$ kubectl get ing
+    NAME                           CLASS    HOSTS   ADDRESS                            PORTS   AGE
+    todo-project-backend-ingress   <none>   *       172.18.0.2,172.18.0.3,172.18.0.4   80      3m6s
+    curl -H "Content-Type: application/json" --request POST -d '{"task": "learn gorm"}' http://todo.local/todos
+    "new todo taskcurl http://todo.local/todoshttp://todo.local/todos
+    [{"task":"learn gorm"}]
+
+    kubectl apply -f https://raw.githubusercontent.com/pasiol/todo-project/2.04/manifests/ingress.yaml
+    ingress.networking.k8s.io/todo-project-ingress created
+    pasiol@lab:~$ kubectl get ing
+    NAME                           CLASS    HOSTS   ADDRESS                            PORTS   AGE
+    todo-project-backend-ingress   <none>   *       172.18.0.2,172.18.0.3,172.18.0.4   80      5m59s
+    todo-project-ingress           <none>   *       172.18.0.2,172.18.0.3,172.18.0.4   80      16s
+
+    kubectl rollout restart deployments/todo-project
+    deployment.apps/todo-project restarted
+
+    firefox http://todo.local
+
+![Screeshot](images/2.08.png)
