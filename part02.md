@@ -363,6 +363,8 @@ https://github.com/pasiol/ping-pong/tree/2.07
 
 ## 2.08
 
+https://github.com/pasiol/todo-project-backend/tree/2.08
+
     sops  --encrypt --age age1kdhxyxzul9q095wq9rc3hfkc4ukt2yze2474f46pk84wl5c7l4kqlxurfl --encrypted-regex '^(data)$' ./manifests/secret.yaml > ./manifests/secret.enc.yaml
 
     kubectl config set-context --current --namespace=todo-project
@@ -432,19 +434,21 @@ deployment.apps/todo-project-backend created
 
     kubectl apply -f https://raw.githubusercontent.com/pasiol/todo-project-backend/2.08/manifests/service.yaml
     service/todo-project-backend-svc unchanged
-    pasiol@lab:~$ kubectl apply -f https://raw.githubusercontent.com/pasiol/todo-project-backend/2.08/manifests/ingress.yaml
+    kubectl apply -f https://raw.githubusercontent.com/pasiol/todo-project-backend/2.08/manifests/ingress.yaml
     ingress.networking.k8s.io/todo-project-backend-ingress created
 
-    pasiol@lab:~$ kubectl get ing
+    kubectl get ing
     NAME                           CLASS    HOSTS   ADDRESS                            PORTS   AGE
     todo-project-backend-ingress   <none>   *       172.18.0.2,172.18.0.3,172.18.0.4   80      3m6s
     curl -H "Content-Type: application/json" --request POST -d '{"task": "learn gorm"}' http://todo.local/todos
-    "new todo taskcurl http://todo.local/todoshttp://todo.local/todos
+    "new todo task"
+
+    curl http://todo.local/todoshttp://todo.local/todos
     [{"task":"learn gorm"}]
 
     kubectl apply -f https://raw.githubusercontent.com/pasiol/todo-project/2.04/manifests/ingress.yaml
     ingress.networking.k8s.io/todo-project-ingress created
-    pasiol@lab:~$ kubectl get ing
+    kubectl get ing
     NAME                           CLASS    HOSTS   ADDRESS                            PORTS   AGE
     todo-project-backend-ingress   <none>   *       172.18.0.2,172.18.0.3,172.18.0.4   80      5m59s
     todo-project-ingress           <none>   *       172.18.0.2,172.18.0.3,172.18.0.4   80      16s
@@ -455,3 +459,14 @@ deployment.apps/todo-project-backend created
     firefox http://todo.local
 
 ![Screeshot](images/2.08.png)
+
+## 2.09
+
+https://github.com/pasiol/daily-wiki/tree/2.09
+
+    kubectl apply -f https://raw.githubusercontent.com/pasiol/daily-wiki/2.09/manifests/deployment.yaml
+    cronjob.batch/daily-wiki-cronjob created
+
+    kubectl get cronjob
+    NAME                 SCHEDULE     SUSPEND   ACTIVE   LAST SCHEDULE   AGE
+    daily-wiki-cronjob   0 16 * * *   False     0        <none>          25s
