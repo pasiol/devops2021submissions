@@ -412,8 +412,6 @@ https://github.com/pasiol/todo-project-backend/tree/2.08
     kubectl apply -f https://raw.githubusercontent.com/pasiol/todo-project-backend/2.08/manifests/postgres/service.yaml
     service/todo-project-backend-db-svc created
 
-
-
     kubectl apply -f https://raw.githubusercontent.com/pasiol/todo-project-backend/2.08/manifests/configMap.yaml
     configmap/todo-db-host created
 
@@ -443,7 +441,7 @@ deployment.apps/todo-project-backend created
     curl -H "Content-Type: application/json" --request POST -d '{"task": "learn gorm"}' http://todo.local/todos
     "new todo task"
 
-    curl http://todo.local/todoshttp://todo.local/todos
+    curl http://todo.local/todos
     [{"task":"learn gorm"}]
 
     kubectl apply -f https://raw.githubusercontent.com/pasiol/todo-project/2.04/manifests/ingress.yaml
@@ -470,3 +468,64 @@ https://github.com/pasiol/daily-wiki/tree/2.09
     kubectl get cronjob
     NAME                 SCHEDULE     SUSPEND   ACTIVE   LAST SCHEDULE   AGE
     daily-wiki-cronjob   0 16 * * *   False     0        <none>          25s
+
+## 2.10
+
+
+    curl https://baltocdn.com/helm/signing.asc | sudo apt-key add -
+    sudo apt-get install apt-transport-https --yes
+    echo "deb https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
+    sudo apt-get update
+    sudo apt-get install helm
+
+    helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+    "prometheus-community" has been added to your repositories
+    helm repo add stable https://charts.helm.sh/stable
+    "stable" has been added to your repositorie
+
+    kubectl create namespace prometheus
+    namespace/prometheus created
+    helm install prometheus-community/kube-prometheus-stack --generate-name --namespace prometheus
+
+    kubectl get po -n prometheus
+    NAME                                                              READY   STATUS    RESTARTS   AGE
+    kube-prometheus-stack-1637605587-kube-state-metrics-7c5888jxvt4   1/1     Running   0          2m11s
+    kube-prometheus-stack-1637605587-prometheus-node-exporter-6cw9b   1/1     Running   0          2m11s
+    kube-prometheus-stack-1637605587-prometheus-node-exporter-gd77h   1/1     Running   0          2m11s
+    kube-prometheus-stack-1637-operator-67664859c-jm982               1/1     Running   0          2m11s
+    kube-prometheus-stack-1637605587-prometheus-node-exporter-pfhd5   1/1     Running   0          2m11s
+    alertmanager-kube-prometheus-stack-1637-alertmanager-0            2/2     Running   0          119s
+    kube-prometheus-stack-1637605587-grafana-76d89d7565-824pp         2/2     Running   0          2m11s
+    prometheus-kube-prometheus-stack-1637-prometheus-0                2/2     Running   0          118s
+    kubectl -n prometheus port-forward kube-prometheus-stack-1637605587-grafana-76d89d7565-824pp 3000
+
+
+    helm repo add grafana https://grafana.github.io/helm-charts
+    helm repo update
+    kubectl create namespace loki-stack
+    namespace/loki-stack created
+
+    helm upgrade --install loki --namespace=loki-stack grafana/loki-stack
+
+    kubectl get all -n loki-stack
+    NAME                      READY   STATUS              RESTARTS   AGE
+    pod/loki-promtail-v8649   0/1     ContainerCreating   0          26s
+    pod/loki-0                0/1     Running             0          26s
+    pod/loki-promtail-dwms2   0/1     Running             0          26s
+    pod/loki-promtail-s8wrm   0/1     Running             0          26s
+
+    NAME                    TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)    AGE
+    service/loki            ClusterIP   10.43.98.38   <none>        3100/TCP   26s
+    service/loki-headless   ClusterIP   None          <none>        3100/TCP   26s
+
+    NAME                           DESIRED   CURRENT   READY   UP-TO-DATE   AVAILABLE   NODE SELECTOR   AGE
+    daemonset.apps/loki-promtail   3         3         0       3            0           <none>          26s
+
+    NAME                    READY   AGE
+    statefulset.apps/loki   0/1     26s
+
+LogQL
+
+    count_over_time({app="todo-project-backend"}|="task length should be between [1,140] characters" [10m])
+
+![Screeshot](images/2.10.png)
