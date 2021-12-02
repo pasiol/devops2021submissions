@@ -281,6 +281,8 @@ https://github.com/pasiol/ping-pong/tree/2.07
     # public key: age1kdhxyxzul9q095wq9rc3hfkc4ukt2yze2474f46pk84wl5c7l4kqlxurfl
     AGE-SECRET-KEY-NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
 
+    export SOPS_AGE_KEY_FILE=$(pwd)/course_key.txt
+
     kubectl config set-context --current --namespace=application
 
     echo -n "testersecret" | base64
@@ -291,7 +293,6 @@ https://github.com/pasiol/ping-pong/tree/2.07
     sops  --encrypt --age age1kdhxyxzul9q095wq9rc3hfkc4ukt2yze2474f46pk84wl5c7l4kqlxurfl --encrypted-regex '^(data)$' secrets.yaml > secrets.enc.yaml
     shred -u -n 100 secrets.yaml
 
-    export SOPS_AGE_KEY_FILE=$(pwd)/course_key.txt
 
     curl https://raw.githubusercontent.com/pasiol/ping-pong/2.07/manifests/secrets.enc.yaml > secrets.enc.yaml && sops --decrypt secrets.enc.yaml > secrets.yaml
 
