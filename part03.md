@@ -181,9 +181,24 @@ https://github.com/pasiol/todo-project-backend/actions/runs/1531253348
 
 ### DBaaS vs DIY
 
+https://github.com/pasiol/todo-project
+
+[DBaaS vs DIY](dbaasvsiy.md)
+
 ## 3.07
 
 ### Commitment
+
+https://github.com/pasiol/todo-project
+
+http://api.nomestyle.com:8888/todos
+
+Backend
+
+https://github.com/pasiol/todo-project-backend/tree/backend-304
+https://github.com/pasiol/todo-project-backend/actions/runs/1521899639
+
+[Commitment](commitment.md)
 
 
 ## 3.08
