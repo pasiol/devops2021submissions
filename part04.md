@@ -10,7 +10,7 @@ pingpong-deployment jää jumiin puuttuneen pvc:n takia (kommentoitu kustomizion
 - https://github.com/pasiol/ping-pong/actions/runs/1538870127
 - https://github.com/pasiol/log-output/actions/runs/1539176462
 
-
+console:
 
     kubectl config set-context --current --namespace=exercise401
 
