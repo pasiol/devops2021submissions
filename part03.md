@@ -312,3 +312,29 @@ https://github.com/pasiol/todo-project-backend/actions/runs/1521899639
     "new todo task created"
 
 ![Screeshot](images/3.10.png)
+
+    curl https://raw.githubusercontent.com/GoogleCloudPlatform/k8s-node-tools/master/os-audit/cos-auditd-logging.yaml > cos-auditd-logging.yaml
+      % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                     Dload  Upload   Total   Spent    Left  Speed
+    100  5124  100  5124    0     0   9419      0 --:--:-- --:--:-- --:--:--  9541
+
+    kubectl apply -f cos-auditd-logging.yaml
+    namespace/cos-auditd created
+    Warning: spec.template.metadata.annotations[scheduler.alpha.kubernetes.io/critical-pod]: non-functional in v1.16+; use the "priorityClassName" field instead
+    daemonset.apps/cos-auditd-logging created
+    configmap/fluentd-gcp-config-cos-auditd created
+
+    kubectl get pods --namespace=cos-auditd
+    NAME                       READY   STATUS            RESTARTS   AGE
+    cos-auditd-logging-45jlw   0/1     PodInitializing   0          28s
+    cos-auditd-logging-jx4dn   0/1     PodInitializing   0          28s
+    cos-auditd-logging-nrthm   0/1     PodInitializing   0          28s
+
+    kubectl get pods --namespace=cos-auditd
+    NAME                       READY   STATUS    RESTARTS   AGE
+    cos-auditd-logging-45jlw   1/1     Running   0          38s
+    cos-auditd-logging-jx4dn   1/1     Running   0          38s
+    cos-auditd-logging-nrthm   1/1     Running   0          38s
+
+
+![Screeshot](images/3.10b.png)
