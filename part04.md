@@ -11,6 +11,7 @@ pingpong-deployment jää jumiin puuttuneen pvc:n takia (kommentoitu kustomizion
 - https://github.com/pasiol/log-output/actions/runs/1539176462
 
 
+
     kubectl config set-context --current --namespace=exercise401
 
     kubectl get pods
