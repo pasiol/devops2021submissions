@@ -254,6 +254,8 @@ https://github.com/pasiol/todo-project-backend/actions/runs/1521899639
 
 ## 3.09
 
+Imaget olivat jääneet viittaamaan docker-hubiin readerin osalta deployment-fileen. Korjattu 4.1-tehtävässä viittamaan gcr-rekisteriin.
+
 - https://github.com/pasiol/ping-pong/tree/applications-309
 - https://github.com/pasiol/log-output/tree/applications-309
 
