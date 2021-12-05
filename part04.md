@@ -5,7 +5,7 @@
 - https://github.com/pasiol/ping-pong/tree/exercise401
 - https://github.com/pasiol/log-output/tree/exercise401
 
-pingpong-deployment jää jumiin puuttuneen pvc:n takia (kommentoitu kustomizion filessä). Se ajetaan konsolista manuaalisesti alla myöhemmin.
+pingpong-deployment jää jumiin puuttuneen pvc:n takia (kommentoitu kustomization filessä). Se ajetaan konsolista manuaalisesti alla myöhemmin.
 
 - https://github.com/pasiol/ping-pong/actions/runs/1538870127
 - https://github.com/pasiol/log-output/actions/runs/1539176462
@@ -84,3 +84,99 @@ console:
     kubectl exec toolbox -- curl http://10.32.14.24/pingpong
 
     Ping / Pongs: 60
+
+## 5.02
+
+- https://github.com/pasiol/todo-project-backend/actions/runs/1539814833
+- https://github.com/pasiol/todo-project-backend/tree/exercise402
+- https://github.com/pasiol/todo-project/actions/runs/1540901463
+- https://github.com/pasiol/todo-project/tree/exercise402
+
+
+Backend's pvc is commented out. So it won't start.
+
+Console
+
+    kubectl get pods
+    NAME                                       READY   STATUS              RESTARTS   AGE
+    todo-project-backend-85bfdb8786-6x8sj      0/1     ContainerCreating   0          68s
+    todo-project-backend-db-6447c64bf4-dt8qv   0/1     Pending             0          68s
+
+    curl https://raw.githubusercontent.com/pasiol/todo-project-backend/main/manifests/persistentVolumeClaim.yaml > tmp/pvc.yaml
+
+    vim tmp/pvc.yaml
+    cat tmp/pvc.yaml
+
+    kind: PersistentVolumeClaim
+    apiVersion: v1
+    metadata:
+      name: todo-project-backend-pvc
+    spec:
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 100Mi
+
+    kubectl get pods
+
+    NAME                                       READY   STATUS    RESTARTS   AGE
+    todo-project-backend-85bfdb8786-6x8sj      0/1     Running   0          3m15s
+    todo-project-backend-db-6447c64bf4-dt8qv   0/1     Pending   0          3m15s
+    todo-project-frontend-5b74b89877-f8lpw     0/1     Running   0          95s
+
+    kubectl apply -f tmp/pvc.yaml
+    persistentvolumeclaim/todo-project-backend-pvc created
+
+    kubectl get pods
+
+    NAME                                       READY   STATUS    RESTARTS   AGE
+    todo-project-backend-85bfdb8786-6x8sj      0/1     Running   0          4m15s
+    todo-project-backend-db-6447c64bf4-dt8qv   1/1     Running   0          4m15s
+    todo-project-frontend-5b74b89877-f8lpw     0/1     Running   0          2m35s
+
+    kubectl get pods
+
+    NAME                                       READY   STATUS    RESTARTS   AGE
+    todo-project-backend-85bfdb8786-6x8sj      1/1     Running   0          4m47s
+    todo-project-backend-db-6447c64bf4-dt8qv   1/1     Running   0          4m47s
+    todo-project-frontend-5b74b89877-f8lpw     0/1     Running   0          3m7s
+
+    kubectl get svc
+
+    NAME                          TYPE           CLUSTER-IP    EXTERNAL-IP    PORT(S)          AGE
+    todo-project-backend-db-svc   ClusterIP      10.32.5.87    <none>         5432/TCP         6m20s
+    todo-project-backend-svc      LoadBalancer   10.32.2.103   34.88.105.91   8888:31540/TCP   6m20s
+    todo-project-frontend-svc     LoadBalancer   10.32.0.46    34.88.203.80   80:31922/TCP     4m40s
+
+There was misconfiguration in the frontend deployment. It won't start before readiness probe is working. 
+
+![Screeshot](images/4.02.png)
+
+Patched
+
+    kubectl get pods
+
+    NAME                                       READY   STATUS    RESTARTS   AGE
+    todo-project-backend-85bfdb8786-6x8sj      1/1     Running   0          6m47s
+    todo-project-backend-db-6447c64bf4-dt8qv   1/1     Running   0          6m47s
+    todo-project-frontend-5b74b89877-f8lpw     0/1     Running   0          5m7s
+
+    kubectl get pods
+
+    NAME                                       READY   STATUS    RESTARTS   AGE
+    todo-project-backend-85bfdb8786-6x8sj      1/1     Running   0          21m
+    todo-project-backend-db-6447c64bf4-dt8qv   1/1     Running   0          21m
+    todo-project-frontend-75855d566b-6gvd7     1/1     Running   0          9m13s
+
+    curl http://api.nomestyle.com:8888/health
+    {"message":"ok"}
+    curl http://34.88.203.80/health
+    <pre>ok</pre>
+
+
+## 5.03
+
+    count(kube_pod_info{created_by_kind="StatefulSet",namespace="prometheus"})
+
+![Screeshot](images/4.03.png)
