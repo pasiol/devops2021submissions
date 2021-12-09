@@ -572,7 +572,7 @@ Frontend
 
 ## 4.06
 
-I moved a cluster to the k3d which is much faster and is capable running asked replicas. The test-data git-repo contains Python scripts which generates new todos and marking them done. I scheduled them runninng as cronjobs on the project namespace.
+I moved a cluster to the k3d which is much faster and is capable running asked replicas. The test-data git-repo contains Python scripts which generates new todos and marking them done. I scheduled them runninng as cronjobs in the project namespace.
 
 - https://github.com/pasiol/todo-project-backend/tree/exercise406
 - https://github.com/pasiol/subcriber-bot
