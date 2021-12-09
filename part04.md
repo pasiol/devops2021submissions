@@ -5,7 +5,7 @@
 - https://github.com/pasiol/ping-pong/tree/exercise401
 - https://github.com/pasiol/log-output/tree/exercise401
 
-pingpong-deployment get stuck because of it is commented out in kustomization file. Service starting later when pvc deployed manually.
+pingpong-deployment get stuck because of pvc is commented out in kustomization file. Service starting later when pvc deployed manually.
 
 - https://github.com/pasiol/ping-pong/actions/runs/1538870127
 - https://github.com/pasiol/log-output/actions/runs/1539176462
@@ -201,22 +201,27 @@ Rollout is made to frontend containers. So cpu time is measured only frontend co
 
 ----
 
-Another try on k3d cluster. On GKE getting minimum availability errors.
+    ...
+    Conditions:
+      Last Transition Time:  2021-12-06T09:13:28Z
+      Last Update Time:      2021-12-06T09:13:28Z
+      Message:               Rollout does not have minimum availability
+      Reason:                AvailableReason
+      Status:                False
+      Type:                  Available
+      Last Transition Time:  2021-12-06T09:25:39Z
+      Last Update Time:      2021-12-06T09:25:39Z
+      Message:               ReplicaSet "todo-project-frontend-f7cfdd4b5" has timed out progressing.
+      Reason:                ProgressDeadlineExceeded
+    ...
 
-Conditions:
-  Last Transition Time:  2021-12-06T09:13:28Z
-  Last Update Time:      2021-12-06T09:13:28Z
-  Message:               Rollout does not have minimum availability
-  Reason:                AvailableReason
-  Status:                False
-  Type:                  Available
-  Last Transition Time:  2021-12-06T09:25:39Z
-  Last Update Time:      2021-12-06T09:25:39Z
-  Message:               ReplicaSet "todo-project-frontend-f7cfdd4b5" has timed out progressing.
-  Reason:                ProgressDeadlineExceeded
 
+Another try on k3d cluster. On GKE getting only minimum availability errors.
 
 Backend
+
+- https://github.com/pasiol/todo-project-backend/tree/exercise404
+
 
     go mod vendor
     docker build -t pasiol/todo-project-backend:rollout .
