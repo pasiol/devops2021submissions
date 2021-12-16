@@ -271,7 +271,10 @@ In canary deployment kubectl-command was used to make update.
 
 ## 5.04
 
-- https://github.com/pasiol/ping-pong/tree/5.05 (typo in branch name)
+
+## 5.05
+
+- https://github.com/pasiol/ping-pong/tree/5.05
 
     kubectl apply -f manifests/service.yaml
     service.serving.knative.dev/ping-pong-serverless created
@@ -326,10 +329,6 @@ In canary deployment kubectl-command was used to make update.
     {"severity":"INFO","timestamp":"2021-12-13T19:33:35.302462798Z","logger":"queueproxy","caller":"queue/main.go:382","message":"Attached drain handler from user-container","commit":"f1e419a","knative.dev/key":"applications/ping-pong-serverless-00001","knative.dev/pod":"ping-pong-serverless-00001-deployment-6cc96d85d-9mq9m"}
     {"severity":"INFO","timestamp":"2021-12-13T19:33:35.311465586Z","logger":"queueproxy","caller":"queue/main.go:227","message":"Received TERM signal, attempting to gracefully shutdown servers.","commit":"f1e419a","knative.dev/key":"applications/ping-pong-serverless-00001","knative.dev/pod":"ping-pong-serverless-00001-deployment-6cc96d85d-9mq9m"}
     {"severity":"INFO","timestamp":"2021-12-13T19:33:35.311542805Z","logger":"queueproxy","caller":"queue/main.go:229","message":"Sleeping 30s to allow K8s propagation of non-ready state","commit":"f1e419a","knative.dev/key":"applications/ping-pong-serverless-00001","knative.dev/pod":"ping-pong-serverless-00001-deployment-6cc96d85d-9mq9m"}
-
-## 5.05
-
-
 
 ## 5.06
 
