@@ -275,7 +275,7 @@ In canary deployment kubectl-command was used to make update.
 
 - price starting from 10-30 €/month !!!
 - service has free dns domain management and firewall
-- ui is simple and very easy learn
+- ui is simple and very easy to learn
 - cost management is simple
 - cli interface
 - web interface
@@ -290,7 +290,7 @@ In canary deployment kubectl-command was used to make update.
 ### Azure Kubernetes Service AKS
 
 - pricing starts from 200€/month, depending how long agreement you are willing to do
-- integrates easily on enterprise ecosystem
+- integrates easily on the enterprise ecosystem
 - integrates everything:)
 - lot of apps/tools/services building data pipeline solutions, from edge to cloud
 - cli and webinterface
@@ -300,7 +300,7 @@ In canary deployment kubectl-command was used to make update.
 - more devops/gitops tools and services
 - on premise solutions from partners
 - scaling large scale/global solutions
-- credible partner on security
+- credible partner on the security
 
 --> more suitable and expensive for enterprise and corporate usage
 
@@ -369,3 +369,21 @@ Serverless:
 ## 5.06
 
 ![Screeshot](images/5.06.png)
+
+- SQL Server - outside of course
+- Atlas / MongoDB - outside of course
+- MySQL - outside of course (long time ago)
+- postgres - course and outside of course
+- neo4j - some experiments
+- RethingDB - some experiments
+- NATS - on course
+- Helm - on course
+- podman - outside of course
+- argo - on course
+- flux - on course
+- gitlab - outside of course
+- rancher - on course
+- prometheus - on course
+- datadog - some experiments
+- grafana / loki  - on course 
+- The Linux foundation training - outside of course
