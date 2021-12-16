@@ -6,19 +6,17 @@
 
 ## 5.01
 
-    k3d cluster create --port 8082:20080@agent:0 -p 8081:80@loadbalancer --agents 2
-    docker exec k3d-k3s-default-agent-0 mkdir -p /tmp/kube && docker exec k3d-k3s-default-agent-1 mkdir -p /tmp/kube
-
----
-
 Cronjob controller:
 
-- https://github.com/pasiol/dummysite_scraper
+I did a golang version of the controller at first, but I didn't get the batch / job to work with persistent volume. To save time, I wrote the controller in Python (dummysite_scraper) for cronjob jobs.
 
 - https://github.com/pasiol/dummysite-controller (jobs)
 
+dummysite_scraper:
 
-- Gets dummysite objects from crd-api. Requesting web page and saving index page to persistent volume. After that controller patches the object spec succeed to true.
+- Retrieves dummysite objects from CRD-api. Retrieves a webpage based on the website_url variable. Saves the page to persistent volume. Finally, update the succeed field of the spec object to true.
+
+- https://github.com/pasiol/dummysite_scraper
 
         kubectl apply -f manifests/stable.dwk.stable.dwk_dummysites.yaml 
         customresourcedefinition.apiextensions.k8s.io/dummysites.stable.dwk.stable.dwk created
@@ -63,6 +61,8 @@ Cronjob controller:
 ---
 
 Web server for scraped dummysites:
+
+Golang is an online service that displays dummysite pages. The pages are stored in Persian volume.
 
 - https://github.com/pasiol/static-server4dummysite
 
@@ -165,6 +165,8 @@ https://github.com/pasiol/subscriber-bot/tree/5.02
 
 Backend:
 
+- https://github.com/pasiol/todo-project-backend/tree/5.02
+
         sops -d manifests/secret.enc.yaml > manifests/secret.yaml
         kubectl apply -f manifests/secret.yaml 
         secret/postgres created
@@ -224,6 +226,8 @@ Brodcaster:
 
 Frontend:
 
+- https://github.com/pasiol/todo-project/tree/5.02
+
 
         printf "$(cat manifests/deployment.yaml | linkerd inject -)" - > manifests/deployment.yaml 
 
@@ -234,6 +238,8 @@ Frontend:
 ---
 
 Test-data (patched version):
+
+- https://github.com/pasiol/todo-test-data/tree/5.02
 
         kubectl apply -f manifests/cronjobGenerateTodos.yaml 
         cronjob.batch/todo-generate-todos created
@@ -264,8 +270,6 @@ In canary deployment kubectl-command was used to make update.
 [![asciicast](https://asciinema.org/a/456679.svg)](https://asciinema.org/a/456679)
 
 ## 5.04
-
-Comparision
 
 
 
