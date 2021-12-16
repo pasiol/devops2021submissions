@@ -62,7 +62,7 @@ dummysite_scraper:
 
 Web server for scraped dummysites:
 
-Golang is an online service that displays dummysite pages. The pages are stored in Persian volume.
+The golang web service for dummysite pages. The pages are stored in persistent volume.
 
 - https://github.com/pasiol/static-server4dummysite
 
@@ -385,5 +385,5 @@ Serverless:
 - rancher - on course
 - prometheus - on course
 - datadog - some experiments
-- grafana / loki  - on course 
+- grafana / loki  - on course
 - The Linux foundation training - outside of course
