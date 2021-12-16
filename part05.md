@@ -271,10 +271,46 @@ In canary deployment kubectl-command was used to make update.
 
 ## 5.04
 
+### Digital Ocean Kubernetes
+
+- price starting from 10-30 €/month !!!
+- service has free dns domain management and firewall
+- ui is simple and very easy learn
+- cost management is simple
+- cli interface
+- web interface
+- no on premise
+- integrates gitlab
+- marketplace 1 click apps for k8s (27)
+- community based documentation
+- open source friendly reputation
+
+--> suitable for small startups, web sites and dev environments
+
+### Azure Kubernetes Service AKS
+
+- pricing starts from 200€/month, depending how long agreement you are willing to do
+- integrates easily on enterprise ecosystem
+- integrates everything:)
+- lot of apps/tools/services building data pipeline solutions, from edge to cloud
+- cli and webinterface
+- marketplace is huge
+- pricing is more complicated than in DO
+- lot of documentation and training possibilities
+- more devops/gitops tools and services
+- on premise solutions from partners
+- scaling large scale/global solutions
+- credible partner on security
+
+--> more suitable and expensive for enterprise and corporate usage
+
+- Services wrestled in the different series. It does not make sense to choose a winner.
 
 ## 5.05
 
 - https://github.com/pasiol/ping-pong/tree/5.05
+
+Serverless:
 
     kubectl apply -f manifests/service.yaml
     service.serving.knative.dev/ping-pong-serverless created
