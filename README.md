@@ -12,6 +12,6 @@
 
 Päivitys: Cloud SQL on sisältää palveluna MySQL:n, PostgreSQL:n tai SQL Serverin eli teoriassa gormin yhdistäminen tietokantapalveluun olisi mahdollista. Mutta näyttää siltä, että yhdistäminen ei ole käytännössä mahdollista ilman proxy-palvelua välissä, mikä olisi tehnyt harjoitustehtävän tekemisen liian työlääksi. Vastaus on oikea, mutta perustelut ontuvat.
 
-Update: Cloud SQL must include MySQL, PostgreSQL or SQL Server as a service, ie in theory it would be possible to connect the gorm to the database service. But it seems that merging is practically not possible without a proxy service in between which would have made making the exercise too tedious.
+Update: Cloud SQL includes MySQL, PostgreSQL or SQL Server as a service, ie in theory it would be possible to connect the gorm to the database service. But it seems that merging is practically not possible without a proxy service in between which would have made making the exercise too tedious.
 
 https://stackoverflow.com/questions/55167951/how-to-connect-to-google-cloudsql-postgressql
